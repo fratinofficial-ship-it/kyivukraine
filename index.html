@@ -30,6 +30,8 @@
         background: radial-gradient(circle at top left, #0f172a, #020617);
         color: #f8fafc;
         overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
     }
 
     .topbar {
@@ -57,6 +59,7 @@
         text-transform: uppercase;
         background: linear-gradient(to right, #fff, var(--neon-blue));
         -webkit-background-clip: text;
+        background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
@@ -68,7 +71,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-bottom: 80px;
+        padding-bottom: 50px;
+        flex: 1;
     }
 
     .logo { 
@@ -138,6 +142,16 @@
         text-align: center;
     }
 
+    .footer-copyright {
+        padding: 30px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+        color: rgba(248, 250, 252, 0.4);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
     .modal {
         position: fixed;
         inset: 0;
@@ -194,6 +208,7 @@
         font-size: 70px;
         background: linear-gradient(var(--neon-blue), var(--primary));
         -webkit-background-clip: text;
+        background-clip: text;
         -webkit-text-fill-color: transparent;
         filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.5));
     }
@@ -241,6 +256,10 @@
     <img src="image_247889.png" class="logo" width="280">
     <div class="buttons-grid" id="btnGrid"></div>
 </div>
+
+<footer class="footer-copyright">
+    &copy; <span id="year"></span> KYIV RP. Усі права захищено.
+</footer>
 
 <div class="modal" id="modal">
     <div class="modal-content">
@@ -291,6 +310,7 @@ const rules = [
 ];
 
 function init() {
+    document.getElementById('year').textContent = new Date().getFullYear();
     const grid = document.getElementById('btnGrid');
     categories.forEach((cat, idx) => {
         const btn = document.createElement('div');
