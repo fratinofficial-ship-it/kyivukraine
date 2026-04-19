@@ -3,506 +3,336 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KYIV RP Rules</title>
+<title>KYIV RP | Правила Сервера</title>
 
-<link rel="icon" type="image/x-icon" href="KyivRP (faveicon).png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Exo 2',sans-serif;
-}
-
-body{
-    min-height:100vh;
-    background: radial-gradient(circle at 20% 20%, rgba(59,130,246,0.25), transparent 40%),
-                radial-gradient(circle at 80% 30%, rgba(96,165,250,0.2), transparent 45%),
-                radial-gradient(circle at 50% 80%, rgba(37,99,235,0.2), transparent 50%),
-                linear-gradient(180deg, #020617, #000);
-    color:white;
-}
-
-.topbar{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:75px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:rgba(0,10,30,0.6);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid rgba(59,130,246,0.3);
-    z-index:100;
-}
-
-.title{
-    padding:8px 18px;
-    border-radius:14px;
-    background:rgba(59,130,246,0.08);
-    border:1px solid rgba(59,130,246,0.4);
-    color:#60a5fa;
-    font-size:26px;
-    font-weight:700;
-    letter-spacing:2px;
-    text-shadow:0 0 18px rgba(59,130,246,0.9);
-}
-
-.container{
-    padding-top:110px;
-    width:100%;
-    max-width:1600px;
-    margin:auto;
-    padding-left:40px;
-    padding-right:40px;
-    padding-bottom:20px; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-body{
-    min-height:100vh;
-    padding-bottom:40px; 
-    background: radial-gradient(circle at 20% 20%, rgba(59,130,246,0.25), transparent 40%),
-                radial-gradient(circle at 80% 30%, rgba(96,165,250,0.2), transparent 45%),
-                radial-gradient(circle at 50% 80%, rgba(37,99,235,0.2), transparent 50%),
-                linear-gradient(180deg, #020617, #000);
-    color:white;
-}
-
-.server-banner {
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 40px;
-    border-radius: 20px;
-    border: 1px solid rgba(59, 130, 246, 0.4);
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-    animation: fadeUp 0.8s ease forwards;
-}
-
-.buttons{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:30px;
-    width: 100%;
-
-    padding: 0 30px;
-    box-sizing: border-box;
-}
-
-button{
-    padding:42px;
-    border-radius:18px;
-    border:1px solid rgba(96,165,250,0.35);
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
-    color:#93c5fd;
-    font-size:24px;
-    font-weight:700;
-    cursor:pointer;
-    transition:0.25s;
-    box-shadow:0 0 10px rgba(59,130,246,0.25);
-    width:100%;
-}
-
-button:hover{
-    transform:translateY(-4px) scale(1.03);
-    box-shadow:0 0 25px rgba(59,130,246,0.8);
-    color:white;
-}
-
-.modal{
-    position:fixed;
-    inset:0;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    background:rgba(0,0,0,0.7);
-    z-index:200;
-}
-
-.modal-content{
-    width:520px;
-    max-width:90vw;
-    max-height:85vh;
-    overflow-y:auto;
-    padding:60px 40px 40px 40px;
-    border-radius:18px;
-    background:rgba(255,255,255,0.06);
-    backdrop-filter:blur(18px);
-    border:1px solid rgba(59,130,246,0.4);
-    box-shadow:0 0 50px rgba(59,130,246,0.7);
-    position:relative;
-    scrollbar-width:none;
-    -ms-overflow-style:none;
-}
-
-body.no-scroll{
-    overflow: hidden;
-    height: 100vh;
-    body.no-scroll{
-    overflow: hidden;
-    height: 100vh;
-}
-}
-
-body::-webkit-scrollbar{
-    width: 0px;
-    height: 0px;
-}
-
-.close{
-    position:absolute;
-    top:10px;
-    right:10px;
-    width:34px;
-    height:34px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    border-radius:10px;
-    cursor:pointer;
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.1);
-    transition:0.2s;
-}
-
-.close:hover{
-    background:rgba(59,130,246,0.2);
-    transform:scale(1.1);
-}
-
-.rule{
-    margin:16px 0;
-    padding:28px 24px 28px 28px;
-    border-radius:16px;
-    background:rgba(59,130,246,0.06);
-    border:1px solid rgba(59,130,246,0.35);
-    box-shadow:0 0 18px rgba(59,130,246,0.25);
-    font-weight:600;
-    font-size:20px;
-    line-height:1.4;
-    position:relative;
-    transform:translateY(0);
-    transition:all 0.25s ease;
-}
-
-.rule:hover{
-    border-color:rgba(59,130,246,0.8);
-    box-shadow:0 0 25px rgba(59,130,246,0.5);
-    transform:translateY(-2px);
-}
-
-.rule-id{
-    display:inline-block;
-    padding:4px 10px;
-    margin-right:10px;
-    border-radius:10px;
-    background:rgba(59,130,246,0.15);
-    border:1px solid rgba(59,130,246,0.5);
-    color:#60a5fa;
-    font-weight:800;
-    box-shadow:0 0 10px rgba(59,130,246,0.25);
-}
-
-.punish-box{
-    margin-top:10px;
-    padding:10px 14px;
-    border-radius:12px;
-    font-size:13px;
-    text-shadow:0 0 8px rgba(251,191,36,0.5);
-}
-
-.punish-box.red{
-    border:1px solid rgba(239,68,68,0.6);
-    background:rgba(239,68,68,0.12);
-    color:#ef4444;
-    box-shadow:0 0 12px rgba(239,68,68,0.3);
-}
-
-.punish-box.orange{
-    border:1px solid rgba(251,146,60,0.6);
-    background:rgba(251,146,60,0.10);
-    color:#fbbf24;
-    box-shadow:0 0 12px rgba(251,146,60,0.25);
-}
-
-.category-title{
-    margin-bottom:18px;
-    padding:10px 14px;
-    border-radius:14px;
-    font-size:22px;
-    font-weight:800;
-    text-align:center;
-    color:#60a5fa;
-    background:rgba(59,130,246,0.08);
-    border:1px solid rgba(59,130,246,0.35);
-    box-shadow:0 0 15px rgba(59,130,246,0.25);
-}
-
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.98);
-        filter: blur(4px);
+    :root {
+        --primary: #3b82f6;
+        --accent: #60a5fa;
+        --neon-blue: #00d4ff;
+        --bg-dark: #020617;
+        --glass-border: rgba(255, 255, 255, 0.08);
     }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
+
+    * {
+        margin: 0; padding: 0;
+        box-sizing: border-box;
+        font-family: 'Montserrat', sans-serif;
+        scrollbar-width: none;
+    }
+    *::-webkit-scrollbar { display: none; }
+
+    body {
+        min-height: 100vh;
+        background: radial-gradient(circle at top left, #0f172a, #020617);
+        color: #f8fafc;
+        overflow-x: hidden;
+    }
+
+    .topbar {
+        position: fixed;
+        top: 0; width: 100%; height: 85px;
+        background: rgba(2, 6, 23, 0.85);
+        backdrop-filter: blur(20px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+        z-index: 1000;
+        animation: fadeInDown 1s ease-out;
+    }
+
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .title-text {
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        background: linear-gradient(to right, #fff, var(--neon-blue));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .container {
+        padding-top: 140px;
+        width: 95%;
+        max-width: 1300px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 80px;
+    }
+
+    .logo { 
+        margin-bottom: 60px; 
+        filter: drop-shadow(0 0 20px var(--primary));
+        animation: zoomIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes zoomIn {
+        from { opacity: 0; transform: scale(0.5); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .buttons-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 25px;
+        width: 100%;
+    }
+
+    .btn-rule {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+        border: 1px solid var(--glass-border);
+        padding: 45px 30px;
+        border-radius: 30px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        opacity: 0;
+        transform: translateY(30px);
+        filter: blur(5px);
+        transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease, filter 0.8s ease, opacity 0.8s ease;
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+    }
+
+    .btn-rule.show { 
+        opacity: 1; 
+        transform: translateY(0); 
         filter: blur(0);
     }
-}
 
-button {
-    animation: fadeUp 0.6s ease forwards;
-    opacity: 0;
-}
+    .btn-rule:hover {
+        border-color: var(--neon-blue);
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 20px 50px rgba(0, 212, 255, 0.3);
+    }
 
-button:nth-child(n) { opacity: 0; animation: fadeUp 0.6s ease forwards; }
-button:nth-child(1){animation-delay:0.1s;}
-button:nth-child(2){animation-delay:0.15s;}
-button:nth-child(3){animation-delay:0.2s;}
-button:nth-child(4){animation-delay:0.25s;}
-button:nth-child(5){animation-delay:0.3s;}
-button:nth-child(6){animation-delay:0.35s;}
-button:nth-child(7){animation-delay:0.4s;}
-button:nth-child(8){animation-delay:0.45s;}
-button:nth-child(9){animation-delay:0.5s;}
-button:nth-child(10){animation-delay:0.55s;}
-button:nth-child(11){animation-delay:0.6s;}
-button:nth-child(12){animation-delay:0.65s;}
-button:nth-child(13){animation-delay:0.7s;}
-button:nth-child(14){animation-delay:0.75s;}
-button:nth-child(15){animation-delay:0.8s;}
-button:nth-child(16){animation-delay:0.85s;}
-button:nth-child(17){animation-delay:0.9s;}
+    .btn-rule i { 
+        font-size: 55px; 
+        color: var(--accent); 
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease; 
+    }
 
-@media (max-width: 900px) {
-    .buttons { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 600px) {
-    .buttons { grid-template-columns: 1fr; }
-}
+    .btn-rule:hover i {
+        color: var(--neon-blue);
+        transform: scale(1.15);
+    }
+
+    .btn-rule span { 
+        font-size: 18px; 
+        font-weight: 800; 
+        text-transform: uppercase; 
+        letter-spacing: 1.5px;
+        text-align: center;
+    }
+
+    .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.94);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        backdrop-filter: blur(20px);
+    }
+
+    .modal-content {
+        width: 850px;
+        max-width: 95vw;
+        max-height: 85vh;
+        background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 40px;
+        padding: 60px 40px;
+        position: relative;
+        overflow-y: auto;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 30px; right: 30px;
+        font-size: 22px;
+        color: #fff;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.05);
+        width: 50px; height: 50px;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 50%;
+        transition: 0.3s;
+        border: 1px solid var(--glass-border);
+    }
+
+    .close-btn:hover { background: #ef4444; border-color: #ef4444; transform: rotate(90deg); }
+
+    .cat-header {
+        font-size: 32px;
+        color: #fff;
+        text-align: center;
+        margin-bottom: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        text-transform: uppercase;
+        font-weight: 900;
+    }
+
+    .cat-header i {
+        font-size: 70px;
+        background: linear-gradient(var(--neon-blue), var(--primary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.5));
+    }
+
+    .rule-item {
+        background: rgba(255, 255, 255, 0.03);
+        margin-bottom: 22px;
+        padding: 30px;
+        border-radius: 25px;
+        border: 1px solid var(--glass-border);
+        opacity: 0;
+        transform: translateX(-20px);
+        animation: slideIn 0.5s ease-out forwards;
+    }
+
+    @keyframes slideIn {
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    .rule-item div { font-size: 19px; font-weight: 700; color: #f1f5f9; margin-bottom: 18px; line-height: 1.4; }
+
+    .punish-tag {
+        display: inline-flex;
+        align-items: center;
+        font-size: 12px;
+        padding: 10px 20px;
+        border-radius: 14px;
+        font-weight: 900;
+        text-transform: uppercase;
+        border: 1.5px solid;
+    }
+
+    .punish-red { color: #ff1a1a; background: rgba(255, 26, 26, 0.15); border-color: rgba(255, 26, 26, 0.6); }
+    .punish-orange { color: #ffcc00; background: rgba(255, 204, 0, 0.15); border-color: rgba(255, 204, 0, 0.6); }
 
 </style>
 </head>
 <body>
 
 <div class="topbar">
-    <div class="title">ПРАВИЛА KYIV RP</div>
+    <div class="title-text">KYIV RP • ПРАВИЛА</div>
 </div>
 
 <div class="container">
-    <img src="image_247889.png" class="logo" width="350" height="220">
-</div>
-
-    <div class="buttons">
-        <button onclick="openModal(0)">1.  Правила дорожнього руху</button>
-        <button onclick="openModal(1)">2.  Зброя</button>
-        <button onclick="openModal(2)">3.  Голосовий чат</button>
-        <button onclick="openModal(3)">4.  Атака</button>
-        <button onclick="openModal(4)">5.  NRP-Поведінка</button>
-        <button onclick="openModal(5)">6. Грабування</button>
-        <button onclick="openModal(6)">7.  NRP-Поліція</button>
-        <button onclick="openModal(7)">8.  Буллінг</button>
-        <button onclick="openModal(8)">9.  Суд</button>
-        <button onclick="openModal(9)">10. Реклама</button>
-        <button onclick="openModal(10)">11. Чіти</button>
-        <button onclick="openModal(11)">12. Bunnyhop</button>
-        <button onclick="openModal(12)">13. Процесуальні дії</button>
-        <button onclick="openModal(13)">14. Уникнення покарання</button>
-        <button onclick="openModal(14)">15. Територія</button>
-        <button onclick="openModal(15)">16. Державні роботи</button>
-        <button onclick="openModal(16)">17. Зелені зони</button>
-    </div>
+    <img src="image_247889.png" class="logo" width="280">
+    <div class="buttons-grid" id="btnGrid"></div>
 </div>
 
 <div class="modal" id="modal">
     <div class="modal-content">
-        <div class="close" onclick="closeModal()">✖</div>
-        <div id="rules"></div>
+        <span class="close-btn" onclick="closeModal()">✕</span>
+        <div id="modalBody"></div>
     </div>
 </div>
 
 <script>
-const categories=["Правила дорожнього руху","Зброя","Голосовий чат","Атака","NRP-Поведінка","Грабування","NRP-Поліція","Буллінг","Суд","Реклама","Чіти","Bunnyhop","Процесуальні дії","Уникнення покарання","Територія","Державні роботи","Зелені зони"];
-
-const rules=[
-[
-"1 Їзда по зустрічній смузі|ПОКАРАННЯ: Штраф 5000€",
-"1.1 Проїзд на червоне світло|ПОКАРАННЯ: Автоматичний штраф 100€",
-"1.2 Вимкнені фари в темний час|ПОКАРАННЯ: Штраф 2000€",
-"1.3 Неправильне паркування (не на парковкі)|ПОКАРАННЯ: Штраф 3000€",
-"1.4 Невикористання поворотників|ПОКАРАННЯ: Штраф 2500€",
-"1.5 Необережна їзда|ПОКАРАННЯ: Штраф 4500€",
-"1.6 Втеча з місця ДТП|ПОКАРАННЯ: Попередження або Штраф 3500€",
-"1.7 Обгін машини|ПОКАРАННЯ: Штраф 1500€",
-"1.8 Використання маячків без необхідності|ПОКАРАННЯ: Штраф 1000€",
-"1.9 Сільский транспорт в місті (трактор)|ПОКАРАННЯ: Штраф 7000€",
-"1.10 Погоня від поліції|ПОКАРАННЯ: КПЗ або Штраф 8000€",
-"1.11 Перевищення швидкості (>150 км/год)|ПОКАРАННЯ: Штраф 3500€",
-"1.12 Підрізання машини|ПОКАРАННЯ: Штраф 8000€"
-],
-[
-"2 Відкрите носіння зброї|ПОКАРАННЯ: Штраф 3000€",
-"2.1 Використання зброї без лицензії|ПОКАРАННЯ: Штраф 5000€ та конфіскація",
-"2.2 Використання зброї без причин|ПОКАРАННЯ: Штраф 8000€ або Депорт 1 доба",
-"2.3 Передача зброї другим особам|ПОКАРАННЯ: Штраф 2500€",
-"2.4 Використання зброї в місті без підстав|ПОКАРАННЯ: Штраф 8000€"
-],
-[
-"3 Гучна музика, сторонні звуки|ПОКАРАННЯ: Штраф 4000€",
-"3.1 Російська музика|ПОКАРАННЯ: Депорт 3 доби",
-"3.2 Перебивання|ПОКАРАННЯ: Штраф 3500€",
-"3.3 Сексуальні звуки|ПОКАРАННЯ: Попередження або Штраф 7000€",
-"3.4 Російська пропаганда|ПОКАРАННЯ: Депорт назавжди"
-],
-[
-"4 VDM (Vehicle Death Match)|ПОКАРАННЯ: Штраф 6000€ або Депорт 2 доби",
-"4.1 RDM (Random Death Match)|ПОКАРАННЯ: Штраф 5000€ або Депорт 2 доба",
-"4.2 RK (Revenge Kill)|ПОКАРАННЯ: Штраф 4000€ або Депорт 1 доба",
-"4.3 DM (Напад) від 3 ударів|ПОКАРАННЯ: Штраф 3000€",
-"4.4 Вбивство|ПОКАРАННЯ: Штраф 8000€ або КПЗ"
-],
-[
-"5 Power Gaming (нерелістичне відігрування)|ПОКАРАННЯ: Попередження або Депорт 2 доби",
-"5.1 Meta Gaming (знання інформації поза грою)|ПОКАРАННЯ: Депорт 2 доби",
-"5.2 Fail RP (невдале RP)|ПОКАРАННЯ: Депорт 1 доба",
-"5.3 CopBaiting (виклик поліції)|ПОКАРАННЯ: Штраф 4000€ або Попередження",
-"5.4 Вбивство AFK-Персонажа|ПОКАРАННЯ: Штраф 8000€",
-"5.5 Відсутність Fear RP (відсутність страху в RP)|ПОКАРАННЯ: Попередження або Депорт 1 доба",
-"5.6 Combat Logging (вихід з бою)|ПОКАРАННЯ: Попередження або Депорт 3 доби",
-"5.7 Мішати офіцеру під час затримання чи погоні та вбивати його, тощо|ПОКАРАННЯ: Депорт 3 доби",
-"5.8 Їздити с злочинцем на поліцейській машині та кафати його щоб другі його не каффнули|ПОКАРАННЯ: Соучастникам та поліцейському - Депорт 16 діб"
-],
-[
-"6 Грабування заправки|ПОКАРАННЯ: Штраф 3500€",
-"6.1 Грабування магазину|ПОКАРАННЯ: Штраф 5000€",
-"6.2 Грабування ювелірного магазину|ПОКАРАННЯ: Штраф на розсуд судді та конфіскація",
-"6.3 Грабування банку|ПОКАРАННЯ: КПЗ або Штраф 8000€ та конфіскація",
-"6.4 Грабування торогово автомату|ПОКАРАННЯ: Штраф 1500€",
-"6.5 Грабування контейнера|ПОКАРАННЯ: Штраф 6000€ та конфіскація"
-],
-[
-"7 Нрп-кафф без причин|ПОКАРАННЯ: Штраф 7000€ або Депорт 1 доба",
-"7.1 XP без дозволу гравця|ПОКАРАННЯ: Попередження або Штраф 2000€",
-"7.2 Перегляд бази данних на наявність розшуку|ПОКАРАННЯ: Попередження або Штраф 3000€",
-"7.3 Кафф для помсти/троллінгу/буллінга|ПОКАРАННЯ: Депорт 3 доби",
-"7.4 Використання тайзеру без причин|ПОКАРАННЯ: Штраф 8000€ або Депорт 2 доби",
-"7.5 Застосовування сили без необхідності|ПОКАРАННЯ: Штраф на розсуд гравця",
-"7.6 Відходити від поліції далі ніж 5 метрів|ПОКАРАННЯ: Попередження",
-"7.7 Везти в КПЗ без суда|ПОКАРАННЯ: Депорт 2 доби"
-],
-[
-"8 Буллінг, сексуальний контент тощо. Поважайте людей|ПОКАРАННЯ: Штраф 6000€",
-"8.1 Буллінг родичів|ПОКАРАННЯ: Депорт 14 діб"
-],
-[
-"9 Перебивання судді/адвоката/прокурора|ПОКАРАННЯ: Штраф 6500€",
-"9.1 Ігнорування рішення суду|ПОКАРАННЯ: Депорт 1 доба або Штраф 5000€",
-"9.2 Прикривання друзів чи знайомих, тощо|ПОКАРАННЯ: Зняття з посади та штраф 8000€",
-"9.3 Поміха в суді|ПОКАРАННЯ: Депорт 2 доби або Штраф 5000€",
-"9.4 Тиск на суддю/адвоката/прокурора|ПОКАРАННЯ: Штраф 2000€",
-"9.5 Неповага до судді|ПОКАРАННЯ: Штраф 3000€"
-],
-[
-"10 Реклама, спам, провокування|ПОКАРАННЯ: Депорт назавжди",
-],
-[
-"11 Чіти, багоюз, тощо|ПОКАРАННЯ: Депорт назавжди",
-],
-[
-"12 Bhop (Bunnyhop)|ПОКАРАННЯ: Попередження. Повторний випадок - Депорт 3 доби",
-],
-[
-"13 Відсутність відеофіксації порушення та затримання|ПОКАРАННЯ: Штраф 3000€",
-"13.1 Непредставлення (звання, імя, посада)|ПОКАРАННЯ: Депорт 1 доба або Штраф 4000€",
-"13.2 Неоголошення міранди|ПОКАРАННЯ: Штраф 4500€",
-"13.3 Неоголшення статей затриманому|ПОКАРАННЯ: Штраф 4500€",
-],
-[
-"14 Уникнення покарання, штраф, депорт (твінки), тощо|ПОКАРАННЯ: Депорт 4 доби/назавжди (якщо обхід бану)",
-"14.1 Вихід під час RP|ПОКАРАННЯ: Депорт 1 доба"
-],
-[
-"15 Проникнення на чужу територію|ПОКАРАННЯ: Депорт 1 доба або Штраф 3000€",
-"15.1 Привласнення чужої території|ПОКАРАННЯ: Депорт 3 доби",
-],
-[
-"16 Не пропустив швидку допомогу яка їде на виклик|ПОКАРАННЯ: Штраф 8000€",
-"16.1 Вбив державного робітника|ПОКАРАННЯ: КПЗ",
-"16.2 Поламав машину державному робітнику|ПОКАРАННЯ: Компенсація на розсуд державного робітника",
-"16.3 Прикриття злочинця на погоні|ПОКАРАННЯ: Депорт 2 доби або Штраф 5000€",
-"16.4 Береш машини за HARS без відома гравця чи без нього|ПОКАРАННЯ: Попередження або Штраф 3000€",
-],
-[
-"17 Бійки в зеленій зоні|ПОКАРАННЯ: Попередження/Депорт 1 доба (залежитьвід тяжкості)",
-"17.1 Рейд в зеленій зоні|ПОКАРАННЯ: Депорт назавжди",
-"17.2 Стрілянина в зеленій зоні|ПОКАРАННЯ: Депорт 7 діб",
-"17.3 Вбивство в зеленій зоні|ПОКАРАННЯ: Депорт (тимчасовий/назавжди)",
-"17.4 Носити Бронижелет та маску в зеленій зоні|ПОКАРАННЯ: Штраф 4000€",
-]
+const categories = [
+    { name: "1. ПДР", icon: "fa-solid fa-car-on" },
+    { name: "2. Зброя", icon: "fa-solid fa-gun" },
+    { name: "3. Голосовий чат", icon: "fa-solid fa-microphone-lines" },
+    { name: "4. Атака", icon: "fa-solid fa-hand-fist" },
+    { name: "5. NRP-Поведінка", icon: "fa-solid fa-user-ninja" },
+    { name: "6. Грабування", icon: "fa-solid fa-user-secret" },
+    { name: "7. NRP-Поліція", icon: "fa-solid fa-shield-halved" },
+    { name: "8. Буллінг", icon: "fa-solid fa-comment-slash" },
+    { name: "9. Суд", icon: "fa-solid fa-gavel" },
+    { name: "10. Реклама", icon: "fa-solid fa-rectangle-ad" },
+    { name: "11. Чіти", icon: "fa-solid fa-triangle-exclamation" },
+    { name: "12. Bunnyhop", icon: "fa-solid fa-person-running" },
+    { name: "13. Процесуальні дії", icon: "fa-solid fa-file-contract" },
+    { name: "14. Уникнення", icon: "fa-solid fa-door-open" },
+    { name: "15. Територія", icon: "fa-solid fa-map-location-dot" },
+    { name: "16. Державні роботи", icon: "fa-solid fa-briefcase" },
+    { name: "17. Зелені зони", icon: "fa-solid fa-shield-heart" }
 ];
 
-function openModal(i){
-    const m=document.getElementById('modal');
-    const r=document.getElementById('rules');
-    r.innerHTML='';
+const rules = [
+    ["1 Їзда по зустрічній смузі|ПОКАРАННЯ: Штраф 5000€","1.1 Проїзд на червоне світло|ПОКАРАННЯ: Автоматичний штраф 100€","1.2 Вимкнені фари в темний час|ПОКАРАННЯ: Штраф 2000€","1.3 Неправильне паркування (не на парковкі)|ПОКАРАННЯ: Штраф 3000€","1.4 Невикористання поворотників|ПОКАРАННЯ: Штраф 2500€","1.5 Необережна їзда|ПОКАРАННЯ: Штраф 4500€","1.6 Втеча з місця ДТП|ПОКАРАННЯ: Попередження або Штраф 3500€","1.7 Обгін машини|ПОКАРАННЯ: Штраф 1500€","1.8 Використання маячків без необхідності|ПОКАРАННЯ: Штраф 1000€","1.9 Сільский транспорт в місті (трактор)|ПОКАРАННЯ: Штраф 7000€","1.10 Погоня від поліції|ПОКАРАННЯ: КПЗ або Штраф 8000€","1.11 Перевищення швидкості (>150 км/год)|ПОКАРАННЯ: Штраф 3500€","1.12 Підрізання машини|ПОКАРАННЯ: Штраф 8000€"],
+    ["2 Відкрите носіння зброї|ПОКАРАННЯ: Штраф 3000€","2.1 Використання зброї без лицензії|ПОКАРАННЯ: Штраф 5000€ та конфіскація","2.2 Використання зброї без причин|ПОКАРАННЯ: Штраф 8000€ або Депорт 1 доба","2.3 Передача зброї другим особам|ПОКАРАННЯ: Штраф 2500€","2.4 Використання зброї в місті без підстав|ПОКАРАННЯ: Штраф 8000€"],
+    ["3 Гучна музика, сторонні звуки|ПОКАРАННЯ: Штраф 4000€","3.1 Російська музика|ПОКАРАННЯ: Депорт 3 доби","3.2 Перебивання|ПОКАРАННЯ: Штраф 3500€","3.3 Сексуальні звуки|ПОКАРАННЯ: Попередження або Штраф 7000€","3.4 Російська пропаганда|ПОКАРАННЯ: Депорт назавжди"],
+    ["4 VDM (Vehicle Death Match)|ПОКАРАННЯ: Штраф 6000€ або Депорт 2 доби","4.1 RDM (Random Death Match)|ПОКАРАННЯ: Штраф 5000€ або Депорт 2 доба","4.2 RK (Revenge Kill)|ПОКАРАННЯ: Штраф 4000€ або Депорт 1 доба","4.3 DM (Напад) від 3 ударів|ПОКАРАННЯ: Штраф 3000€","4.4 Вбивство|ПОКАРАННЯ: Штраф 8000€ або КПЗ"],
+    ["5 Power Gaming (нерелістичне відігрування)|ПОКАРАННЯ: Попередження або Депорт 2 доби","5.1 Meta Gaming (знання інформації поза грою)|ПОКАРАННЯ: Депорт 2 доби","5.2 Fail RP (невдале RP)|ПОКАРАННЯ: Депорт 1 доба","5.3 CopBaiting (виклик поліції)|ПОКАРАННЯ: Штраф 4000€ або Попередження","5.4 Вбивство AFK-Персонажа|ПОКАРАННЯ: Штраф 8000€","5.5 Відсутність Fear RP (відсутність страху в RP)|ПОКАРАННЯ: Попередження або Депорт 1 доба","5.6 Combat Logging (вихід з бою)|ПОКАРАННЯ: Попередження або Депорт 3 доби","5.7 Мішати офіцеру під час затримання чи погоні та вбивати його, тощо|ПОКАРАННЯ: Депорт 3 доби","5.8 Їздити с злочинцем на поліцейській машині та кафати його щоб другі його не каффнули|ПОКАРАННЯ: Соучастникам та поліцейському - Депорт 16 діб"],
+    ["6 Грабування заправки|ПОКАРАННЯ: Штраф 3500€","6.1 Грабування магазину|ПОКАРАННЯ: Штраф 5000€","6.2 Грабування ювелірного магазину|ПОКАРАННЯ: Штраф на розсуд судді та конфіскація","6.3 Грабування банку|ПОКАРАННЯ: КПЗ або Штраф 8000€ та конфіскація","6.4 Грабування торогово автомату|ПОКАРАННЯ: Штраф 1500€","6.5 Грабування контейнера|ПОКАРАННЯ: Штраф 6000€ та конфіскація"],
+    ["7 Нрп-кафф без причин|ПОКАРАННЯ: Штраф 7000€ або Депорт 1 доба","7.1 XP без дозволу гравця|ПОКАРАННЯ: Попередження або Штраф 2000€","7.2 Перегляд бази данних на наявність розшуку|ПОКАРАННЯ: Попередження або Штраф 3000€","7.3 Кафф для помсти/троллінгу/буллінга|ПОКАРАННЯ: Депорт 3 доби","7.4 Використання тайзеру без причин|ПОКАРАННЯ: Штраф 8000€ або Депорт 2 доби","7.5 Застосовування сили без необхідності|ПОКАРАННЯ: Штраф на розсуд гравця","7.6 Відходити від поліції далі ніж 5 метрів|ПОКАРАННЯ: Попередження","7.7 Везти в КПЗ без суда|ПОКАРАННЯ: Депорт 2 доби"],
+    ["8 Буллінг, сексуальний контент тощо. Поважайте людей|ПОКАРАННЯ: Штраф 6000€","8.1 Буллінг родичів|ПОКАРАННЯ: Депорт 14 діб"],
+    ["9 Перебивання судді/адвоката/прокурора|ПОКАРАННЯ: Штраф 6500€","9.1 Ігнорування рішення суду|ПОКАРАННЯ: Депорт 1 доба або Штраф 5000€","9.2 Прикривання друзів чи знайомих, тощо|ПОКАРАННЯ: Зняття з посади та штраф 8000€","9.3 Поміха в суді|ПОКАРАННЯ: Депорт 2 доби або Штраф 5000€","9.4 Тиск на суддю/адвоката/прокурора|ПОКАРАННЯ: Штраф 2000€","9.5 Неповага до судді|ПОКАРАННЯ: Штраф 3000€"],
+    ["10 Реклама, спам, провокування|ПОКАРАННЯ: Депорт назавжди"],
+    ["11 Чіти, багоюз, тощо|ПОКАРАННЯ: Депорт назавжди"],
+    ["12 Bhop (Bunnyhop)|ПОКАРАННЯ: Попередження. Повторний випадок - Депорт 3 доби"],
+    ["13 Відсутність відеофіксації порушення та затримання|ПОКАРАННЯ: Штраф 3000€","13.1 Непредставлення (звання, імя, посада)|ПОКАРАННЯ: Депорт 1 доба або Штраф 4000€","13.2 Неоголошення міранди|ПОКАРАННЯ: Штраф 4500€","13.3 Неоголшення статей затриманому|ПОКАРАННЯ: Штраф 4500€"],
+    ["14 Уникнення покарання, штраф, депорт (твінки), тощо|ПОКАРАННЯ: Депорт 4 доби/назавжди (якщо обхід бану)","14.1 Вихід під час RP|ПОКАРАННЯ: Депорт 1 доба"],
+    ["15 Проникнення на чужу територію|ПОКАРАННЯ: Депорт 1 доба або Штраф 3000€","15.1 Привласнення чужої території|ПОКАРАННЯ: Депорт 3 доби"],
+    ["16 Не пропустив швидку допомогу яка їде на виклик|ПОКАРАННЯ: Штраф 8000€","16.1 Вбив державного робітника|ПОКАРАННЯ: КПЗ","16.2 Поламав машину державному робітнику|ПОКАРАННЯ: Компенсація на розсуд державного робітника","16.3 Прикриття злочинця на погоні|ПОКАРАННЯ: Депорт 2 доби або Штраф 5000€","16.4 Береш машини за HARS без відома гравця чи без нього|ПОКАРАННЯ: Попередження або Штраф 3000€"],
+    ["17 Бійки в зеленій зоні|ПОКАРАННЯ: Попередження/Депорт 1 доба (залежить від тяжкості)","17.1 Рейд в зеленій зоні|ПОКАРАННЯ: Депорт назавжди","17.2 Стрілянина в зеленій зоні|ПОКАРАННЯ: Депорт 7 діб","17.3 Вбивство в зеленій зоні|ПОКАРАННЯ: Депорт (тимчасовий/назавжди)","17.4 Носити Бронижелет та маску в зеленій зоні|ПОКАРАННЯ: Штраф 4000€"]
+];
 
-    document.body.style.overflow='hidden';
-
-    const title=document.createElement('div');
-    title.className='category-title';
-    title.textContent=categories[i]||'';
-    r.appendChild(title);
-
-    r.appendChild(title);
-
-// 👇 ОЦЕ СЮДИ ВСТАВЛЯЄШ
-if(i === 16){
-    const img = document.createElement('img');
-    img.src = "image_247891.png";
-
-    img.style.width = "100%";
-    img.style.maxWidth = "450px";
-    img.style.display = "block";
-    img.style.margin = "15px auto 25px";
-    img.style.borderRadius = "16px";
-    img.style.boxShadow = "0 0 25px rgba(59,130,246,0.3)";
-    r.appendChild(img);
+function init() {
+    const grid = document.getElementById('btnGrid');
+    categories.forEach((cat, idx) => {
+        const btn = document.createElement('div');
+        btn.className = 'btn-rule';
+        btn.innerHTML = `<i class="${cat.icon}"></i><span>${cat.name}</span>`;
+        btn.onclick = () => openModal(idx);
+        grid.appendChild(btn);
+        
+        setTimeout(() => {
+            btn.classList.add('show');
+        }, 150 + (idx * 65)); 
+    });
 }
 
-    rules[i].forEach(t=>{
-        let d=document.createElement('div');
-        d.className='rule';
+function openModal(idx) {
+    const modal = document.getElementById('modal');
+    const body = document.getElementById('modalBody');
+    body.innerHTML = `<div class="cat-header"><i class="${categories[idx].icon}"></i>${categories[idx].name}</div>`;
+    
+    if(idx === 16) body.innerHTML += `<img src="image_247891.png" style="width:100%; border-radius:30px; margin-bottom:30px; border:2px solid var(--neon-blue);">`;
 
-        const [ruleText, punishText] = t.split('|');
-        const parts = ruleText.split(' ');
-        const id = parts.shift();
-        const text = parts.join(' ');
-
-        const isRed = punishText.includes('КПЗ') || punishText.includes('Депорт') || punishText.includes('Зняття з посади');
-        const cls = isRed ? 'red' : 'orange';
-
-        d.innerHTML = `<span class='rule-id'>§${id}</span> ${text}<div class='punish-box ${cls}'>${punishText}</div>`;
-
-        r.appendChild(d);
+    rules[idx].forEach((ruleStr, rIdx) => {
+        const [text, punish] = ruleStr.split('|');
+        const isRed = punish.includes('КПЗ') || punish.includes('Депорт') || punish.includes('назавжди') || punish.includes('Зняття');
+        const item = document.createElement('div');
+        item.className = 'rule-item';
+        item.style.animationDelay = `${rIdx * 0.07}s`;
+        item.innerHTML = `<div>${text}</div><span class="punish-tag ${isRed ? 'punish-red' : 'punish-orange'}"><i class="fa-solid fa-circle-exclamation" style="margin-right:10px;"></i>${punish}</span>`;
+        body.appendChild(item);
     });
 
-    m.style.display='flex';
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
 }
 
-function closeModal(){
-    document.getElementById('modal').style.display='none';
-    document.body.style.overflow='auto';
+function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+    document.body.style.overflow = 'auto';
 }
 
-window.onclick=(e)=>{if(e.target.id==='modal') closeModal();}
+window.onclick = (e) => { if (e.target.id == 'modal') closeModal(); }
+init();
 </script>
 
 </body>
