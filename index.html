@@ -42,6 +42,7 @@
         
         .btn-rule i { font-size: 65px; background: linear-gradient(135deg, #fff, var(--accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; transition: 0.3s; }
         .btn-rule:hover i { transform: scale(1.15); }
+        
         .btn-rule span { font-size: 18px; font-weight: 700; text-transform: uppercase; color: #f8fafc; text-align: center; letter-spacing: 0.5px; }
 
         .modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(15px); opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
@@ -60,11 +61,12 @@
         .notif-title { font-weight: 800; font-size: 14px; margin-bottom: 5px; text-transform: uppercase; }
         .notif-msg { font-size: 13px; color: var(--text-muted); }
 
-        .auth-choice-btn { width: 100%; max-width: 320px; padding: 14px; border-radius: 14px; border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; gap: 12px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 14px; margin-bottom: 12px; }
-        .btn-g { background: white; color: #000; }
-        .btn-a { background: #000; color: white; border-color: #333; }
-        .auth-choice-btn:hover { transform: scale(1.02); opacity: 0.9; }
-
+        .admin-item { background: rgba(255, 255, 255, 0.03); padding: 20px; border-radius: 18px; border: 1px solid var(--glass-border); border-left: 5px solid var(--admin-color); margin-bottom: 20px; }
+        .adm-actions { display: flex; gap: 12px; margin-top: 15px; }
+        .btn-adm-act { flex: 1; padding: 10px; border-radius: 10px; border: none; cursor: pointer; font-weight: 800; color: white; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .st-approved { border-left-color: var(--success); }
+        .st-rejected { border-left-color: var(--error); }
+        
         .rule-item { background: rgba(255, 255, 255, 0.02); padding: 20px; border-radius: 15px; border: 1px solid var(--glass-border); margin-bottom: 12px; font-family: 'Montserrat', sans-serif; font-weight: 700; }
         .punish-tag { display: inline-flex; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 800; text-transform: uppercase; border: 1px solid; margin-top: 10px; }
         .punish-red { color: #f87171; background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.2); }
@@ -81,7 +83,7 @@
     <div class="title-text" onclick="location.reload()">KYIV RP • ПРАВИЛА</div>
     <div class="nav-buttons">
         <div class="btn-nav btn-admin-nav" id="adminBtn" onclick="openAdminPanel()"><i class="fa-solid fa-user-shield"></i><span>Адмін</span></div>
-        <div class="btn-nav btn-login" id="authBtn" onclick="handleAuthClick(event)"><i class="fa-solid fa-right-to-bracket"></i><span>Увійти</span></div>
+        <div class="btn-nav btn-login" id="authBtn" onclick="handleAuthClick(event)"><i class="fa-brands fa-google"></i><span>Увійти</span></div>
         <div class="btn-nav btn-add-idea" onclick="handleIdeaButtonClick()"><i class="fa-solid fa-lightbulb"></i><span>Ідея</span></div>
     </div>
 </div>
@@ -102,7 +104,7 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, GoogleAuthProvider, OAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyBgLoIbu-T68wyHGt0YFUuIrnMG9u-3C7U",
@@ -115,8 +117,7 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    const googleProvider = new GoogleAuthProvider();
-    const appleProvider = new OAuthProvider('apple.com');
+    const provider = new GoogleAuthProvider();
     const OWNER_EMAIL = "fratin.official@gmail.com";
 
     onAuthStateChanged(auth, (user) => {
@@ -125,24 +126,22 @@
         if (user) {
             window.userLoggedIn = true;
             window.userEmail = user.email;
-            const photo = user.photoURL || 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
-            authBtn.innerHTML = `<img src="${photo}" id="userPic"><span>${user.displayName ? user.displayName.split(' ')[0] : 'Профіль'}</span><div class="user-menu" id="userMenu"><div class="menu-item" onclick="googleLogout()"><i class="fa-solid fa-right-from-bracket"></i><span>Вийти</span></div></div>`;
+            authBtn.innerHTML = `<img src="${user.photoURL}" id="userPic"><span>${user.displayName.split(' ')[0]}</span><div class="user-menu" id="userMenu"><div class="menu-item" onclick="googleLogout()"><i class="fa-solid fa-right-from-bracket"></i><span>Вийти</span></div></div>`;
             if (user.email === OWNER_EMAIL) adminBtn.style.display = 'flex';
         } else {
             window.userLoggedIn = false;
             window.userEmail = "";
-            authBtn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i><span>Увійти</span>`;
+            authBtn.innerHTML = `<i class="fa-brands fa-google"></i><span>Увійти</span>`;
             adminBtn.style.display = 'none';
         }
     });
 
-    window.googleLogin = () => { signInWithPopup(auth, googleProvider).then(() => closeModal()).catch(err => console.log(err)); }
-    window.appleLogin = () => { signInWithPopup(auth, appleProvider).then(() => closeModal()).catch(err => console.log(err)); }
+    window.googleLogin = () => signInWithPopup(auth, provider);
     window.googleLogout = () => signOut(auth);
 
     window.handleAuthClick = (e) => {
         e.stopPropagation();
-        if (!window.userLoggedIn) openAuthModal();
+        if (!window.userLoggedIn) window.googleLogin();
         else document.getElementById('userMenu')?.classList.toggle('active');
     }
 
@@ -152,8 +151,8 @@
         let hasUpdate = false;
         ideas.forEach((idea, index) => {
             if (idea.email === window.userEmail && (idea.status === 'approved' || idea.status === 'rejected') && !idea.notified) {
-                if(idea.status === 'approved') showNotification('ПРИЙНЯТО!', 'Твою ідею схвалили!', 'var(--success)');
-                else showNotification('ВІДХИЛЕНО', 'На жаль, ідею відхилили.', 'var(--error)');
+                if(idea.status === 'approved') showNotification('ПРИЙНЯТО!', 'Твою ідею схвалили! Дякуємо. Незабаром ми її добавимо на сайт.', 'var(--success)');
+                else showNotification('ВІДХИЛЕНО', 'На жаль, ідею відхилили. Спробуй ще.', 'var(--error)');
                 ideas[index].notified = true;
                 hasUpdate = true;
             }
@@ -215,25 +214,8 @@
         const modal = document.getElementById('modal'); modal.style.display = 'flex'; setTimeout(() => modal.classList.add('open'), 10);
     }
 
-    function openAuthModal() {
-        const body = document.getElementById('modalBody');
-        body.innerHTML = `
-            <div class="cat-header"><i class="fa-solid fa-user-lock"></i><span>ВХІД</span></div>
-            <p style="text-align:center; color:var(--text-muted); margin-bottom:25px;">Оберіть платформу для авторизації</p>
-            <div style="display:flex; flex-direction:column; align-items:center;">
-                <button class="auth-choice-btn btn-g" onclick="googleLogin()">
-                    <i class="fa-brands fa-google" style="font-size:18px;"></i> Google Account
-                </button>
-                <button class="auth-choice-btn btn-a" onclick="appleLogin()">
-                    <i class="fa-brands fa-apple" style="font-size:20px;"></i> Apple ID
-                </button>
-            </div>
-        `;
-        const modal = document.getElementById('modal'); modal.style.display = 'flex'; setTimeout(() => modal.classList.add('open'), 10);
-    }
-
     function handleIdeaButtonClick() {
-        if (!window.userLoggedIn) showNotification('УПС!', 'Спочатку увійдіть.', 'var(--admin-color)'); 
+        if (!window.userLoggedIn) showNotification('УПС!', 'Спочатку увійдіть через Google.', 'var(--admin-color)'); 
         else openIdeaModal();
     }
 
@@ -245,10 +227,19 @@
     function sendIdea() {
         const now = Date.now();
         const lastSent = localStorage.getItem('last_idea_time') || 0;
-        if (now - lastSent < 180000) return showNotification('УВАГА!', `Зачекайте трохи перед наступною ідеєю.`, 'var(--admin-color)');
+        const cooldown = 180000; 
+        const diff = now - lastSent;
+
+        if (diff < cooldown) {
+            const rem = cooldown - diff;
+            const m = Math.floor(rem / 60000);
+            const s = Math.ceil((rem % 60000) / 1000);
+            let timeText = m > 0 ? `${m} хв. та ${s} сек.` : `${s} сек.`;
+            return showNotification('УВАГА!', `Наступна спроба через ${timeText}`, 'var(--admin-color)');
+        }
 
         const text = document.getElementById('ideaText').value; 
-        if(!text.trim()) return showNotification('УВАГА!', 'Введіть текст.', 'var(--admin-color)');
+        if(!text.trim()) return showNotification('УВАГА!', 'Поле не може бути порожнім.', 'var(--admin-color)');
         
         const btn = document.getElementById('submitIdeaBtn'); 
         btn.innerHTML = `<i class="fa-solid fa-clock fa-spin"></i> ВІДПРАВКА...`;
@@ -259,7 +250,8 @@
             ideas.push({ id: Date.now(), email: window.userEmail, text: text, date: new Date().toLocaleString(), status: 'pending', notified: false });
             localStorage.setItem('server_ideas', JSON.stringify(ideas));
             localStorage.setItem('last_idea_time', Date.now());
-            document.getElementById('modalBody').innerHTML = `<div style="text-align:center; padding:20px;"><i class="fa-solid fa-circle-check" style="font-size:60px; color:var(--success);"></i><h2 style="margin-top:15px;">НАДІСЛАНО!</h2><button onclick="closeModal()" class="btn-nav btn-add-idea" style="margin:20px auto;">ЗАКРИТИ</button></div>`;
+
+            document.getElementById('modalBody').innerHTML = `<div style="text-align:center; padding:20px;"><i class="fa-solid fa-circle-check" style="font-size:60px; color:var(--success);"></i><h2 style="margin-top:15px;">НАДІСЛАНО!</h2><p style="color:var(--text-muted); margin:15px 0;">Адмін перевірить вашу ідею. Дякуємо!</p><button onclick="closeModal()" class="btn-nav btn-add-idea" style="margin:0 auto;">ЗАКРИТИ</button></div>`;
         }, 1200);
     }
 
