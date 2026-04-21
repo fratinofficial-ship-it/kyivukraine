@@ -1,260 +1,92 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KYIV RP | Правила Сервера</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYIV RP | Правила Сервера</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6; --accent: #60a5fa; --neon-blue: #00d4ff;
+            --bg-dark: #020617; --card-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08); --text-main: #f8fafc;
+            --text-muted: #94a3b8; --success: #22c55e; --error: #ef4444; --admin-color: #f59e0b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; scrollbar-width: none; }
+        *::-webkit-scrollbar { display: none; }
+        body { min-height: 100vh; background: radial-gradient(circle at top left, #0f172a, #020617); color: var(--text-main); overflow-x: hidden; display: flex; flex-direction: column; }
+        
+        .topbar { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; justify-content: space-between; align-items: center; padding: 0 5%; border-bottom: 1px solid var(--glass-border); z-index: 1000; }
+        .title-text { font-size: 20px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(to right, #fff, var(--neon-blue)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
+        .nav-buttons { display: flex; gap: 15px; align-items: center; }
+        .btn-nav { color: white; padding: 10px 18px; border-radius: 12px; font-weight: 700; font-size: 12px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; transition: 0.3s; }
+        .btn-add-idea { background: linear-gradient(135deg, #22c55e, #10b981); }
+        .btn-admin-nav { background: linear-gradient(135deg, #f59e0b, #d97706); display: none; }
+        .btn-login { background: rgba(255, 255, 255, 0.05); position: relative; }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+        .user-menu { position: absolute; top: calc(100% + 10px); right: 0; background: #0f172a; border: 1px solid var(--glass-border); border-radius: 12px; padding: 8px; width: 160px; display: none; flex-direction: column; gap: 5px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 1100; }
+        .user-menu.active { display: flex; }
+        .menu-item { padding: 10px; border-radius: 8px; color: var(--text-main); font-size: 11px; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 10px; transition: 0.2s; cursor: pointer; }
+        .menu-item:hover { background: rgba(255,255,255,0.05); color: var(--error); }
 
-<style>
-    :root {
-        --primary: #3b82f6;
-        --accent: #60a5fa;
-        --neon-blue: #00d4ff;
-        --bg-dark: #020617;
-        --card-bg: rgba(255, 255, 255, 0.03);
-        --glass-border: rgba(255, 255, 255, 0.08);
-        --text-main: #f8fafc;
-        --text-muted: #94a3b8;
-    }
+        .container { padding-top: 130px; width: 95%; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; padding-bottom: 60px; flex: 1; }
+        .logo { margin-bottom: 50px; filter: drop-shadow(0 0 25px var(--primary)); max-width: 250px; }
+        .buttons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; width: 100%; }
+        
+        .btn-rule { 
+            background: var(--card-bg); border: 1px solid var(--glass-border); padding: 35px 20px; border-radius: 20px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; opacity: 0; transform: translateY(20px); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn-rule.show { opacity: 1; transform: translateY(0); }
+        .btn-rule:hover { transform: translateY(-10px) !important; border-color: var(--neon-blue); box-shadow: 0 15px 35px rgba(0, 212, 255, 0.25); background: rgba(255, 255, 255, 0.06); }
+        
+        .btn-rule i { font-size: 65px; background: linear-gradient(135deg, #fff, var(--accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; transition: 0.3s; }
+        .btn-rule:hover i { transform: scale(1.15); }
+        
+        /* ТЕКСТ У КАРТКАХ (МЕНЮ) — MONTSERRAT BOLD */
+        .btn-rule span { font-size: 18px; font-weight: 700; text-transform: uppercase; color: #f8fafc; text-align: center; letter-spacing: 0.5px; }
 
-    * {
-        margin: 0; padding: 0;
-        box-sizing: border-box;
-        font-family: 'Montserrat', sans-serif;
-        scrollbar-width: none;
-    }
-    *::-webkit-scrollbar { display: none; }
+        .modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(15px); opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        .modal.open { opacity: 1; pointer-events: auto; }
+        .modal-content { width: 800px; max-width: 90vw; max-height: 80vh; background: linear-gradient(135deg, #0f172a, #020617); border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px 30px; position: relative; overflow-y: auto; transform: scale(0.9); transition: transform 0.4s; }
+        .modal.open .modal-content { transform: scale(1); }
+        .close-btn { position: absolute; top: 20px; right: 20px; font-size: 20px; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.05); z-index: 10; }
 
-    body {
-        min-height: 100vh;
-        background: radial-gradient(circle at top left, #0f172a, #020617);
-        color: var(--text-main);
-        overflow-x: hidden;
-        display: flex;
-        flex-direction: column;
-    }
+        .cat-header { display: flex; flex-direction: column; align-items: center; gap: 15px; font-weight: 900; margin-bottom: 30px; text-transform: uppercase; text-align: center; }
+        .cat-header i { font-size: 80px; margin-bottom: 10px; background: linear-gradient(135deg, #fff, var(--accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .cat-header span { font-size: 24px; }
 
-    .topbar {
-        position: fixed;
-        top: 0; width: 100%; height: 80px;
-        background: rgba(2, 6, 23, 0.8);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-bottom: 1px solid var(--glass-border);
-        z-index: 1000;
-        animation: fadeInDown 0.8s ease-out;
-    }
+        #notification-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column-reverse; gap: 15px; z-index: 9999; }
+        .notif { background: rgba(15, 23, 42, 0.95); border: 1px solid var(--glass-border); padding: 20px; border-radius: 16px; width: 320px; border-left: 5px solid var(--primary); animation: slideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes slideIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .notif-title { font-weight: 800; font-size: 14px; margin-bottom: 5px; text-transform: uppercase; }
+        .notif-msg { font-size: 13px; color: var(--text-muted); }
 
-    @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .title-text {
-        font-size: 26px;
-        font-weight: 900;
-        letter-spacing: 5px;
-        text-transform: uppercase;
-        background: linear-gradient(to right, #fff, var(--neon-blue));
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .container {
-        padding-top: 130px;
-        width: 95%;
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-bottom: 60px;
-        flex: 1;
-    }
-
-    .logo { 
-        margin-bottom: 50px; 
-        filter: drop-shadow(0 0 25px var(--primary));
-        animation: zoomIn 1s cubic-bezier(0.34, 1.56, 0.64, 1);
-        max-width: 250px;
-    }
-
-    @keyframes zoomIn {
-        from { opacity: 0; transform: scale(0.5); }
-        to { opacity: 1; transform: scale(1); }
-    }
-
-    .buttons-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 20px;
-        width: 100%;
-    }
-
-    .btn-rule {
-        background: var(--card-bg);
-        border: 1px solid var(--glass-border);
-        padding: 30px 20px;
-        border-radius: 20px;
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 15px;
-        opacity: 0;
-        transform: translateY(20px);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    }
-
-    .btn-rule.show { opacity: 1; transform: translateY(0); }
-
-    .btn-rule:hover {
-        border-color: rgba(0, 212, 255, 0.5);
-        transform: translateY(-5px);
-        background: rgba(255, 255, 255, 0.05);
-        box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
-    }
-
-    .btn-rule i { 
-        font-size: 50px; 
-        background: linear-gradient(135deg, #fff, var(--accent));
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        transition: transform 0.3s ease;
-    }
-
-    .btn-rule:hover i { transform: scale(1.1); }
-
-    .btn-rule span { 
-        font-size: 16px; 
-        font-weight: 700; 
-        text-transform: uppercase; 
-        letter-spacing: 1.5px;
-        color: #e2e8f0;
-    }
-
-    .footer-copyright {
-        padding: 25px;
-        text-align: center;
-        font-size: 13px;
-        color: var(--text-muted);
-        border-top: 1px solid var(--glass-border);
-    }
-
-    .modal {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.85);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 2000;
-        backdrop-filter: blur(15px);
-        opacity: 0;
-        transition: opacity 0.4s ease;
-    }
-
-    .modal.open { opacity: 1; }
-
-    .modal-content {
-        width: 800px;
-        max-width: 90vw;
-        max-height: 80vh;
-        background: linear-gradient(135deg, #0f172a, #020617);
-        border: 1px solid var(--glass-border);
-        border-radius: 24px;
-        padding: 50px 30px;
-        position: relative;
-        overflow-y: auto;
-        transform: scale(0.9);
-        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .modal.open .modal-content { transform: scale(1); }
-
-    .close-btn {
-        position: absolute;
-        top: 20px; right: 20px;
-        font-size: 20px;
-        cursor: pointer;
-        width: 40px; height: 40px;
-        display: flex; align-items: center; justify-content: center;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.05);
-        transition: 0.3s;
-    }
-
-    .close-btn:hover { background: rgba(239, 68, 68, 0.2); color: #ef4444; transform: rotate(90deg); }
-
-    .cat-header {
-        font-size: 28px;
-        text-align: center;
-        margin-bottom: 40px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        text-transform: uppercase;
-        font-weight: 800;
-    }
-
-    .cat-header i {
-        font-size: 60px;
-        background: linear-gradient(135deg, #fff, var(--neon-blue));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .rule-item {
-        background: rgba(255, 255, 255, 0.02);
-        padding: 20px;
-        border-radius: 15px;
-        border: 1px solid var(--glass-border);
-        margin-bottom: 15px;
-        opacity: 0;
-        animation: slideInR 0.4s ease-out forwards;
-    }
-
-    @keyframes slideInR { to { opacity: 1; transform: translateX(0); } }
-
-    .rule-text { font-size: 16px; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
-
-    .punish-tag {
-        display: inline-flex;
-        padding: 6px 12px;
-        border-radius: 8px;
-        font-size: 11px;
-        font-weight: 800;
-        text-transform: uppercase;
-        border: 1px solid;
-    }
-
-    .punish-red { color: #f87171; background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.2); }
-    .punish-orange { color: #fbbf24; background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.2); }
-
-    .copyright-box {
-        text-align: center;
-        padding: 20px;
-    }
-    .copyright-box h1 { color: var(--neon-blue); margin-bottom: 20px; font-size: 24px; }
-    .copyright-box p { color: #cbd5e1; line-height: 1.8; margin-bottom: 10px; }
-</style>
+        .admin-item { background: rgba(255, 255, 255, 0.03); padding: 20px; border-radius: 18px; border: 1px solid var(--glass-border); border-left: 5px solid var(--admin-color); margin-bottom: 20px; }
+        .adm-actions { display: flex; gap: 12px; margin-top: 15px; }
+        .btn-adm-act { flex: 1; padding: 10px; border-radius: 10px; border: none; cursor: pointer; font-weight: 800; color: white; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .st-approved { border-left-color: var(--success); }
+        .st-rejected { border-left-color: var(--error); }
+        
+        .rule-item { background: rgba(255, 255, 255, 0.02); padding: 20px; border-radius: 15px; border: 1px solid var(--glass-border); margin-bottom: 12px; font-family: 'Montserrat', sans-serif; font-weight: 700; }
+        .punish-tag { display: inline-flex; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 800; text-transform: uppercase; border: 1px solid; margin-top: 10px; }
+        .punish-red { color: #f87171; background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.2); }
+        .punish-orange { color: #fbbf24; background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.2); }
+        .footer-copyright { padding: 25px; text-align: center; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--glass-border); }
+        #userPic { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; }
+    </style>
 </head>
-<body>
+<body onclick="closeAllMenus(event)">
+
+<div id="notification-container"></div>
 
 <div class="topbar">
-    <div class="title-text">KYIV RP • ПРАВИЛА</div>
+    <div class="title-text" onclick="location.reload()">KYIV RP • ПРАВИЛА</div>
+    <div class="nav-buttons">
+        <div class="btn-nav btn-admin-nav" id="adminBtn" onclick="openAdminPanel()"><i class="fa-solid fa-user-shield"></i><span>Адмін</span></div>
+        <div class="btn-nav btn-login" id="authBtn" onclick="handleAuthClick(event)"><i class="fa-brands fa-google"></i><span>Увійти</span></div>
+        <div class="btn-nav btn-add-idea" onclick="handleIdeaButtonClick()"><i class="fa-solid fa-lightbulb"></i><span>Ідея</span></div>
+    </div>
 </div>
 
 <div class="container">
@@ -262,112 +94,208 @@
     <div class="buttons-grid" id="btnGrid"></div>
 </div>
 
-<footer class="footer-copyright">
-    &copy; <span id="year"></span> KYIV RP. Усі права захищено.
-</footer>
+<footer class="footer-copyright">&copy; <span id="year"></span> KYIV RP. Усі права захищено.</footer>
 
-<div class="modal" id="modal">
+<div class="modal" id="modal" onclick="if(event.target === this) closeModal()">
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal()">✕</span>
         <div id="modalBody"></div>
     </div>
 </div>
 
-<script>
-const categories = [
-    { name: "1. ПДР", icon: "fa-solid fa-car-on" },
-    { name: "2. Зброя", icon: "fa-solid fa-gun" },
-    { name: "3. Голосовий чат", icon: "fa-solid fa-microphone-lines" },
-    { name: "4. Атака", icon: "fa-solid fa-hand-fist" },
-    { name: "5. NRP-Поведінка", icon: "fa-solid fa-user-ninja" },
-    { name: "6. Грабування", icon: "fa-solid fa-user-secret" },
-    { name: "7. NRP-Поліція", icon: "fa-solid fa-shield-halved" },
-    { name: "8. Буллінг", icon: "fa-solid fa-comment-slash" },
-    { name: "9. Суд", icon: "fa-solid fa-gavel" },
-    { name: "10. Реклама", icon: "fa-solid fa-rectangle-ad" },
-    { name: "11. Чіти", icon: "fa-solid fa-triangle-exclamation" },
-    { name: "12. Bunnyhop", icon: "fa-solid fa-person-running" },
-    { name: "13. Процесуальні дії", icon: "fa-solid fa-file-contract" },
-    { name: "14. Уникнення", icon: "fa-solid fa-door-open" },
-    { name: "15. Територія", icon: "fa-solid fa-map-location-dot" },
-    { name: "16. Державні роботи", icon: "fa-solid fa-briefcase" },
-    { name: "17. Зелені зони", icon: "fa-solid fa-shield-heart" },
-    { name: "Авторські права", icon: "fa-solid fa-scale-balanced" }
-];
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-const rules = [
-    ["1 Їзда по зустрічній смузі|ПОКАРАННЯ: Штраф 5000€","1.1 Проїзд на червоне світло|ПОКАРАННЯ: Автоматичний штраф 100€","1.2 Вимкнені фари в темний час|ПОКАРАННЯ: Штраф 2000€","1.3 Неправильне паркування (не на парковкі)|ПОКАРАННЯ: Штраф 3000€","1.4 Невикористання поворотників|ПОКАРАННЯ: Штраф 2500€","1.5 Необережна їзда|ПОКАРАННЯ: Штраф 4500€","1.6 Втеча з місця ДТП|ПОКАРАННЯ: Попередження або Штраф 3500€","1.7 Обгін машини|ПОКАРАННЯ: Штраф 1500€","1.8 Використання маячків без необхідності|ПОКАРАННЯ: Штраф 1000€","1.9 Сільский транспорт в місті (трактор)|ПОКАРАННЯ: Штраф 7000€","1.10 Погоня від поліції|ПОКАРАННЯ: КПЗ або Штраф 8000€","1.11 Перевищення швидкості (>150 км/год)|ПОКАРАННЯ: Штраф 3500€","1.12 Підрізання машини|ПОКАРАННЯ: Штраф 8000€"],
-    ["2 Відкрите носіння зброї|ПОКАРАННЯ: Штраф 3000€","2.1 Використання зброї без лицензії|ПОКАРАННЯ: Штраф 5000€ та конфіскація","2.2 Використання зброї без причин|ПОКАРАННЯ: Штраф 8000€ або Депорт 1 доба","2.3 Передача зброї другим особам|ПОКАРАННЯ: Штраф 2500€","2.4 Використання зброї в місті без підстав|ПОКАРАННЯ: Штраф 8000€"],
-    ["3 Гучна музика, сторонні звуки|ПОКАРАННЯ: Штраф 4000€","3.1 Російська музика|ПОКАРАННЯ: Депорт 3 доби","3.2 Перебивання|ПОКАРАННЯ: Штраф 3500€","3.3 Сексуальні звуки|ПОКАРАННЯ: Попередження або Штраф 7000€","3.4 Російська пропаганда|ПОКАРАННЯ: Депорт назавжди"],
-    ["4 VDM (Vehicle Death Match)|ПОКАРАННЯ: Штраф 6000€ або Депорт 2 доби","4.1 RDM (Random Death Match)|ПОКАРАННЯ: Штраф 5000€ або Депорт 2 доба","4.2 RK (Revenge Kill)|ПОКАРАННЯ: Штраф 4000€ або Депорт 1 доба","4.3 DM (Напад) від 3 ударів|ПОКАРАННЯ: Штраф 3000€","4.4 Вбивство|ПОКАРАННЯ: Штраф 8000€ або КПЗ"],
-    ["5 Power Gaming (нерелістичне відігрування)|ПОКАРАННЯ: Попередження або Депорт 2 доби","5.1 Meta Gaming (знання інформації поза грою)|ПОКАРАННЯ: Депорт 2 доби","5.2 Fail RP (невдале RP)|ПОКАРАННЯ: Депорт 1 доба","5.3 CopBaiting (виклик поліції)|ПОКАРАННЯ: Штраф 4000€ або Попередження","5.4 Вбивство AFK-Персонажа|ПОКАРАННЯ: Штраф 8000€","5.5 Відсутність Fear RP (відсутність страху в RP)|ПОКАРАННЯ: Попередження або Депорт 1 доба","5.6 Combat Logging (вихід з бою)|ПОКАРАННЯ: Попередження або Депорт 3 доби","5.7 Мішати офіцеру під час затримання чи погоні та вбивати його, тощо|ПОКАРАННЯ: Депорт 3 доби","5.8 Їздити с злочинцем на поліцейській машині та кафати його щоб другі його не каффнули|ПОКАРАННЯ: Соучастникам та поліцейському - Депорт 16 діб"],
-    ["6 Грабування заправки|ПОКАРАННЯ: Штраф 3500€","6.1 Грабування магазину|ПОКАРАННЯ: Штраф 5000€","6.2 Грабування ювелірного магазину|ПОКАРАННЯ: Штраф на розсуд судді та конфіскація","6.3 Грабування банку|ПОКАРАННЯ: КПЗ або Штраф 8000€ та конфіскація","6.4 Грабування торогово автомату|ПОКАРАННЯ: Штраф 1500€","6.5 Грабування контейнера|ПОКАРАННЯ: Штраф 6000€ та конфіскація"],
-    ["7 Нрп-кафф без причин|ПОКАРАННЯ: Штраф 7000€ або Депорт 1 доба","7.1 XP без дозволу гравця|ПОКАРАННЯ: Попередження або Штраф 2000€","7.2 Перегляд бази данних на наявність розшуку|ПОКАРАННЯ: Попередження або Штраф 3000€","7.3 Кафф для помсти/троллінгу/буллінга|ПОКАРАННЯ: Депорт 3 доби","7.4 Використання тайзеру без причин|ПОКАРАННЯ: Штраф 8000€ або Депорт 2 доби","7.5 Застосовування сили без необхідності|ПОКАРАННЯ: Штраф на розсуд гравця","7.6 Відходити від поліції далі ніж 5 метрів|ПОКАРАННЯ: Попередження","7.7 Везти в КПЗ без суда|ПОКАРАННЯ: Депорт 2 доби"],
-    ["8 Буллінг, сексуальний контент тощо. Поважайте людей|ПОКАРАННЯ: Штраф 6000€","8.1 Буллінг родичів|ПОКАРАННЯ: Депорт 14 діб"],
-    ["9 Перебивання судді/адвоката/прокурора|ПОКАРАННЯ: Штраф 6500€","9.1 Ігнорування рішення суду|ПОКАРАННЯ: Депорт 1 доба або Штраф 5000€","9.2 Прикривання друзів чи знайомих, тощо|ПОКАРАННЯ: Зняття з посади та штраф 8000€","9.3 Поміха в суді|ПОКАРАННЯ: Депорт 2 доби або Штраф 5000€","9.4 Тиск на суддю/адвоката/прокурора|ПОКАРАННЯ: Штраф 2000€","9.5 Неповага до судді|ПОКАРАННЯ: Штраф 3000€"],
-    ["10 Реклама, спам, провокування|ПОКАРАННЯ: Депорт назавжди"],
-    ["11 Чіти, багоюз, тощо|ПОКАРАННЯ: Депорт назавжди"],
-    ["12 Bhop (Bunnyhop)|ПОКАРАННЯ: Попередження. Повторний випадок - Депорт 3 доби"],
-    ["13 Відсутність відеофіксації порушення та затримання|ПОКАРАННЯ: Штраф 3000€","13.1 Непредставлення (звання, імя, посада)|ПОКАРАННЯ: Депорт 1 доба або Штраф 4000€","13.2 Неоголошення міранди|ПОКАРАННЯ: Штраф 4500€","13.3 Неоголшення статей затриманому|ПОКАРАННЯ: Штраф 4500€"],
-    ["14 Уникнення покарання, штраф, депорт (твінки), тощо|ПОКАРАННЯ: Депорт 4 доби/назавжди (якщо обхід бану)","14.1 Вихід під час RP|ПОКАРАННЯ: Депорт 1 доба"],
-    ["15 Проникнення на чужу територію|ПОКАРАННЯ: Депорт 1 доба або Штраф 3000€","15.1 Привласнення чужої території|ПОКАРАННЯ: Депорт 3 доби"],
-    ["16 Не пропустив швидку допомогу яка їде на виклик|ПОКАРАННЯ: Штраф 8000€","16.1 Вбив державного робітника|ПОКАРАННЯ: КПЗ","16.2 Поламав машину державному робітнику|ПОКАРАННЯ: Компенсація на розсуд державного робітника","16.3 Прикриття злочинця на погоні|ПОКАРАННЯ: Депорт 2 доби або Штраф 5000€","16.4 Береш машини за HARS без відома гравця чи без нього|ПОКАРАННЯ: Попередження або Штраф 3000€"],
-    ["17 Бійки в зеленій зоні|ПОКАРАННЯ: Попередження/Депорт 1 доба (залежить від тяжкості)","17.1 Рейд в зеленій зоні|ПОКАРАННЯ: Депорт назавжди","17.2 Стрілянина в зеленій зоні|ПОКАРАННЯ: Депорт 7 діб","17.3 Вбивство в зеленій зоні|ПОКАРАННЯ: Депорт (тимчасовий/назавжди)","17.4 Носити Бронижелет та маску в зеленій зоні|ПОКАРАННЯ: Штраф 4000€"],
-    ["COPYRIGHT"]
-];
+    const firebaseConfig = {
+        apiKey: "AIzaSyBgLoIbu-T68wyHGt0YFUuIrnMG9u-3C7U",
+        authDomain: "kyiv-7e1ab.firebaseapp.com",
+        projectId: "kyiv-7e1ab",
+        storageBucket: "kyiv-7e1ab.firebasestorage.app",
+        messagingSenderId: "461876253742",
+        appId: "1:461876253742:web:71afb40cc9648a99c63bbf"
+    };
 
-function init() {
-    document.getElementById('year').textContent = new Date().getFullYear();
-    const grid = document.getElementById('btnGrid');
-    categories.forEach((cat, idx) => {
-        const btn = document.createElement('div');
-        btn.className = 'btn-rule';
-        btn.innerHTML = `<i class="${cat.icon}"></i><span>${cat.name}</span>`;
-        btn.onclick = () => openModal(idx);
-        grid.appendChild(btn);
-        setTimeout(() => btn.classList.add('show'), 150 + (idx * 50));
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    const OWNER_EMAIL = "fratin.official@gmail.com";
+
+    onAuthStateChanged(auth, (user) => {
+        const adminBtn = document.getElementById('adminBtn');
+        const authBtn = document.getElementById('authBtn');
+        if (user) {
+            window.userLoggedIn = true;
+            window.userEmail = user.email;
+            authBtn.innerHTML = `<img src="${user.photoURL}" id="userPic"><span>${user.displayName.split(' ')[0]}</span><div class="user-menu" id="userMenu"><div class="menu-item" onclick="googleLogout()"><i class="fa-solid fa-right-from-bracket"></i><span>Вийти</span></div></div>`;
+            if (user.email === OWNER_EMAIL) adminBtn.style.display = 'flex';
+        } else {
+            window.userLoggedIn = false;
+            window.userEmail = "";
+            authBtn.innerHTML = `<i class="fa-brands fa-google"></i><span>Увійти</span>`;
+            adminBtn.style.display = 'none';
+        }
     });
-}
 
-function openModal(idx) {
-    const modal = document.getElementById('modal');
-    const body = document.getElementById('modalBody');
-    body.innerHTML = `<div class="cat-header"><i class="${categories[idx].icon}"></i>${categories[idx].name}</div>`;
+    window.googleLogin = () => signInWithPopup(auth, provider);
+    window.googleLogout = () => signOut(auth);
+
+    window.handleAuthClick = (e) => {
+        e.stopPropagation();
+        if (!window.userLoggedIn) window.googleLogin();
+        else document.getElementById('userMenu')?.classList.toggle('active');
+    }
+
+    window.checkNotifications = () => {
+        if (!window.userLoggedIn) return;
+        let ideas = JSON.parse(localStorage.getItem('server_ideas') || '[]');
+        let hasUpdate = false;
+        ideas.forEach((idea, index) => {
+            if (idea.email === window.userEmail && (idea.status === 'approved' || idea.status === 'rejected') && !idea.notified) {
+                if(idea.status === 'approved') showNotification('ПРИЙНЯТО!', 'Твою ідею схвалили! Дякуємо. Незабаром ми її добавимо на сайт.', 'var(--success)');
+                else showNotification('ВІДХИЛЕНО', 'На жаль, ідею відхилили. Спробуй ще.', 'var(--error)');
+                ideas[index].notified = true;
+                hasUpdate = true;
+            }
+        });
+        if (hasUpdate) localStorage.setItem('server_ideas', JSON.stringify(ideas));
+    };
+    setInterval(window.checkNotifications, 2000);
+</script>
+
+<script>
+    const categories = [
+        { name: "1. ПДР", icon: "fa-solid fa-car-on" }, { name: "2. Зброя", icon: "fa-solid fa-gun" }, { name: "3. Голосовий чат", icon: "fa-solid fa-microphone-lines" }, { name: "4. Атака", icon: "fa-solid fa-hand-fist" }, { name: "5. NRP-Поведінка", icon: "fa-solid fa-robot" }, { name: "6. Грабування", icon: "fa-solid fa-user-secret" }, { name: "7. NRP-Поліція", icon: "fa-solid fa-shield-halved" }, { name: "8. Буллінг", icon: "fa-solid fa-comment-slash" }, { name: "9. Суд", icon: "fa-solid fa-gavel" }, { name: "10. Реклама", icon: "fa-solid fa-rectangle-ad" }, { name: "11. Чіти", icon: "fa-solid fa-triangle-exclamation" }, { name: "12. Bunnyhop", icon: "fa-solid fa-person-running" }, { name: "13. Процесуальні дії", icon: "fa-solid fa-file-contract" }, { name: "14. Уникнення", icon: "fa-solid fa-door-open" }, { name: "15. Територія", icon: "fa-solid fa-map-location-dot" }, { name: "16. Державні роботи", icon: "fa-solid fa-briefcase" }, { name: "17. Зелені зони", icon: "fa-solid fa-shield-heart" }, { name: "Авторські права", icon: "fa-solid fa-scale-balanced" }
+    ];
     
-    if (idx === 17) {
-        body.innerHTML += `
-            <div class="copyright-box">
-                <h1>Авторські права</h1>
-                <p>Весь контент сайту <b>Kyiv RP</b> (тексти, дизайн, код, зображення) є власністю власника сайту та захищений законом України.</p>
-                <p>Копіювання або використання матеріалів без дозволу <span style="color:#ef4444">заборонено</span>.</p>
-            </div>`;
-    } else {
-        if(idx === 16) body.innerHTML += `<img src="image_247891.png" style="width:100%; border-radius:15px; margin-bottom:20px; border:1px solid var(--glass-border);">`;
-        rules[idx].forEach((ruleStr, rIdx) => {
-            const [text, punish] = ruleStr.split('|');
-            const isRed = punish.includes('КПЗ') || punish.includes('Депорт') || punish.includes('назавжди');
-            const item = document.createElement('div');
-            item.className = 'rule-item';
-            item.style.animationDelay = `${rIdx * 0.05}s`;
-            item.innerHTML = `<div class="rule-text">${text}</div><span class="punish-tag ${isRed ? 'punish-red' : 'punish-orange'}">${punish}</span>`;
-            body.appendChild(item);
+    const rules = [
+        ["1 Їзда по зустрічній смузі|ПОКАРАННЯ: Штраф 5000€","1.1 Проїзд на червоне світло|ПОКАРАННЯ: Автоматичний штраф 100€","1.2 Вимкнені фари в темний час|ПОКАРАННЯ: Штраф 2000€","1.3 Неправильне паркування|ПОКАРАННЯ: Штраф 3000€","1.4 Невикористання поворотників|ПОКАРАННЯ: Штраф 2500€","1.5 Необережна їзда|ПОКАРАННЯ: Штраф 4500€","1.6 Втеча з місця ДТП|ПОКАРАННЯ: Попередження або Штраф 3500€","1.7 Обгін машини|ПОКАРАННЯ: Штраф 1500€","1.8 Використання маячків|ПОКАРАННЯ: Штраф 1000€","1.9 Сільский транспорт|ПОКАРАННЯ: Штраф 7000€","1.10 Погоня|ПОКАРАННЯ: КПЗ або Штраф 8000€","1.11 Перевищення швидкості|ПОКАРАННЯ: Штраф 3500€","1.12 Підрізання|ПОКАРАННЯ: Штраф 8000€"],
+        ["2 Відкрите носіння зброї|ПОКАРАННЯ: Штраф 3000€","2.1 Зброя без лицензії|ПОКАРАННЯ: Штраф 5000€","2.2 Зброя без причин|ПОКАРАННЯ: Штраф 8000€","2.3 Передача зброї|ПОКАРАННЯ: Штраф 2500€","2.4 Зброя в місті|ПОКАРАННЯ: Штраф 8000€"],
+        ["3 Гучна музика|ПОКАРАННЯ: Штраф 4000€","3.1 Російська музика|ПОКАРАННЯ: Депорт 3 доби","3.2 Перебивання|ПОКАРАННЯ: Штраф 3500€","3.3 Сексуальні звуки|ПОКАРАННЯ: Штраф 7000€","3.4 Російська пропаганда|ПОКАРАННЯ: Депорт назавжди"],
+        ["4 VDM|ПОКАРАННЯ: Штраф 6000€ або Депорт 2 доби","4.1 RDM|ПОКАРАННЯ: Штраф 5000€ або Депорт 2 доба","4.2 RK|ПОКАРАННЯ: Штраф 4000€","4.3 DM від 3 ударів|ПОКАРАННЯ: Штраф 3000€","4.4 Вбивство|ПОКАРАННЯ: Штраф 8000€ або КПЗ"],
+        ["5 Power Gaming|ПОКАРАННЯ: Попередження або Депорт 2 доби","5.1 Meta Gaming|ПОКАРАННЯ: Депорт 2 доби","5.2 Fail RP|ПОКАРАННЯ: Депорт 1 доба","5.3 CopBaiting|ПОКАРАННЯ: Штраф 4000€","5.4 Вбивство AFK|ПОКАРАННЯ: Штраф 8000€","5.5 Відсутність Fear RP|ПОКАРАННЯ: Депорт 1 доба","5.6 Combat Logging|ПОКАРАННЯ: Депорт 3 доби","5.7 Поміха поліції|ПОКАРАННЯ: Депорт 3 доби","5.8 Їздити з злочинцем в патруль|ПОКАРАННЯ: Депорт 16 діб"],
+        ["6 Грабування заправки|ПОКАРАННЯ: Штраф 3500€","6.1 Грабування магазину|ПОКАРАННЯ: Штраф 5000€","6.2 Грабування ювелірки|ПОКАРАННЯ: Штраф та конфіскація","6.3 Грабування банку|ПОКАРАННЯ: КПЗ або Штраф 8000€","6.4 Грабування автомату|ПОКАРАННЯ: Штраф 1500€","6.5 Грабування контейнера|ПОКАРАННЯ: Штраф 6000€"],
+        ["7 Нрп-кафф|ПОКАРАННЯ: Штраф 7000€ або Депорт 1 доба","7.1 XP без дозволу|ПОКАРАННЯ: Штраф 2000€","7.2 Перегляд бази данних|ПОКАРАННЯ: Штраф 3000€","7.3 Кафф для помсти/троллінгу|ПОКАРАННЯ: Депорт 3 доби","7.4 Тайзер без причин|ПОКАРАННЯ: Штраф 8000€","7.5 Сила без необхідності|ПОКАРАННЯ: Штраф","7.6 Відходити від копа|ПОКАРАННЯ: Попередження","7.7 В КПЗ без суда|ПОКАРАННЯ: Депорт 2 доби"],
+        ["8 Буллінг людей|ПОКАРАННЯ: Штраф 6000€","8.1 Буллінг родичів|ПОКАРАННЯ: Депорт 14 діб"],
+        ["9 Перебивання судді|ПОКАРАННЯ: Штраф 6500€","9.1 Ігнорування рішення суду|ПОКАРАННЯ: Депорт 1 доба","9.2 Прикривання друзів|ПОКАРАННЯ: Зняття та штраф 8000€","9.3 Поміха в суді|ПОКАРАННЯ: Штраф 5000€","9.4 Тиск на суд|ПОКАРАННЯ: Штраф 2000€","9.5 Неповага до судді|ПОКАРАННЯ: Штраф 3000€"],
+        ["10 Реклама та спам|ПОКАРАННЯ: Депорт назавжди"],
+        ["11 Чіти та багоюз|ПОКАРАННЯ: Депорт назавжди"],
+        ["12 Bunnyhop|ПОКАРАННЯ: Попередження або Депорт 3 доби"],
+        ["13 Відсутність відеофіксації|ПОКАРАННЯ: Штраф 3000€","13.1 Непредставлення|ПОКАРАННЯ: Штраф 4000€","13.2 Неоголошення міранди|ПОКАРАННЯ: Штраф 4500€","13.3 Неоголшення статей|ПОКАРАННЯ: Штраф 4500€"],
+        ["14 Уникнення покарання|ПОКАРАННЯ: Депорт на 3 доби/назавжди","14.1 Вихід под час RP|ПОКАРАННЯ: Депорт 1 доба"],
+        ["15 Проникнення на територію|ПОКАРАННЯ: Штраф 3000€","15.1 Привласнення території|ПОКАРАННЯ: Депорт 3 доби"],
+        ["16 Не пропустив швидку|ПОКАРАННЯ: Штраф 8000€","16.1 Вбив держ. робітника|ПОКАРАННЯ: КПЗ","16.2 Поламав авто робітнику|ПОКАРАННЯ: Компенсація","16.3 Прикриття злочинця|ПОКАРАННЯ: Депорт 2 доби","16.4 Взяв авто за HARS без відома людини|ПОКАРАННЯ: Штраф 3000€"],
+        ["17 Бійки в ЗЗ|ПОКАРАННЯ: Депорт 1 доба","17.1 Рейд в ЗЗ|ПОКАРАННЯ: Депорт назавжди","17.2 Стрілянина в ЗЗ|ПОКАРАННЯ: Депорт 7 діб","17.3 Вбивство в ЗЗ|ПОКАРАННЯ: Депорт назавжди","17.4 Броня та маска в ЗЗ|ПОКАРАННЯ: Штраф 4000€"],
+        ["Авторські права захищені. Усі права належать KYIV RP."]
+    ];
+
+    function initGrid() {
+        document.getElementById('year').textContent = new Date().getFullYear();
+        const grid = document.getElementById('btnGrid');
+        categories.forEach((cat, idx) => {
+            const btn = document.createElement('div'); btn.className = 'btn-rule'; 
+            btn.innerHTML = `<i class="${cat.icon}"></i><span>${cat.name}</span>`; 
+            btn.onclick = () => openModal(idx); grid.appendChild(btn); 
+            setTimeout(() => btn.classList.add('show'), 50 + (idx * 30));
         });
     }
 
-    modal.style.display = 'flex';
-    setTimeout(() => modal.classList.add('open'), 10);
-    document.body.style.overflow = 'hidden';
-}
+    function openModal(idx) {
+        const body = document.getElementById('modalBody'); 
+        body.innerHTML = `<div class="cat-header"><i class="${categories[idx].icon}"></i><span>${categories[idx].name}</span></div>`;
+        if (idx === 17) body.innerHTML += `<p style="text-align:center; color:var(--text-muted);">${rules[idx][0]}</p>`;
+        else {
+            if(idx === 16) body.innerHTML += `<img src="image_247891.png" style="width:100%; border-radius:15px; margin-bottom:20px;">`;
+            rules[idx].forEach(r => { 
+                const p = r.split('|'); if(p.length < 2) return;
+                const isRed = p[1].includes('КПЗ') || p[1].includes('Депорт');
+                body.innerHTML += `<div class="rule-item"><div>${p[0]}</div><span class="punish-tag ${isRed ? 'punish-red' : 'punish-orange'}">${p[1]}</span></div>`;
+            });
+        }
+        const modal = document.getElementById('modal'); modal.style.display = 'flex'; setTimeout(() => modal.classList.add('open'), 10);
+    }
 
-function closeModal() {
-    const modal = document.getElementById('modal');
-    modal.classList.remove('open');
-    setTimeout(() => { modal.style.display = 'none'; document.body.style.overflow = 'auto'; }, 400);
-}
+    function handleIdeaButtonClick() {
+        if (!window.userLoggedIn) showNotification('УПС!', 'Спочатку увійдіть через Google.', 'var(--admin-color)'); 
+        else openIdeaModal();
+    }
 
-window.onclick = (e) => { if (e.target.id == 'modal') closeModal(); }
-init();
+    function openIdeaModal() {
+        document.getElementById('modalBody').innerHTML = `<div class="cat-header"><i class="fa-solid fa-lightbulb"></i>ВАША ІДЕЯ</div><textarea id="ideaText" style="width: 100%; height: 150px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 15px; padding: 15px; color: white; resize: none; font-size: 16px; outline:none;" placeholder="Опишіть ідею..."></textarea><div style="text-align:center; margin-top:20px;"><button id="submitIdeaBtn" style="background: var(--success); color: white; border: none; padding: 12px 40px; border-radius: 10px; font-weight: 700; cursor: pointer;" onclick="sendIdea()">НАДІСЛАТИ</button></div>`;
+        const modal = document.getElementById('modal'); modal.style.display = 'flex'; setTimeout(() => modal.classList.add('open'), 10);
+    }
+
+    function sendIdea() {
+        const now = Date.now();
+        const lastSent = localStorage.getItem('last_idea_time') || 0;
+        const cooldown = 180000; 
+        const diff = now - lastSent;
+
+        if (diff < cooldown) {
+            const rem = cooldown - diff;
+            const m = Math.floor(rem / 60000);
+            const s = Math.ceil((rem % 60000) / 1000);
+            let timeText = m > 0 ? `${m} хв. та ${s} сек.` : `${s} сек.`;
+            return showNotification('УВАГА!', `Наступна спроба через ${timeText}`, 'var(--admin-color)');
+        }
+
+        const text = document.getElementById('ideaText').value; 
+        if(!text.trim()) return showNotification('УВАГА!', 'Поле не може бути порожнім.', 'var(--admin-color)');
+        
+        const btn = document.getElementById('submitIdeaBtn'); 
+        btn.innerHTML = `<i class="fa-solid fa-clock fa-spin"></i> ВІДПРАВКА...`;
+        btn.disabled = true;
+
+        setTimeout(() => {
+            const ideas = JSON.parse(localStorage.getItem('server_ideas') || '[]');
+            ideas.push({ id: Date.now(), email: window.userEmail, text: text, date: new Date().toLocaleString(), status: 'pending', notified: false });
+            localStorage.setItem('server_ideas', JSON.stringify(ideas));
+            localStorage.setItem('last_idea_time', Date.now());
+
+            document.getElementById('modalBody').innerHTML = `<div style="text-align:center; padding:20px;"><i class="fa-solid fa-circle-check" style="font-size:60px; color:var(--success);"></i><h2 style="margin-top:15px;">НАДІСЛАНО!</h2><p style="color:var(--text-muted); margin:15px 0;">Адмін перевірить вашу ідею. Дякуємо!</p><button onclick="closeModal()" class="btn-nav btn-add-idea" style="margin:0 auto;">ЗАКРИТИ</button></div>`;
+        }, 1200);
+    }
+
+    function showNotification(title, msg, color) {
+        const container = document.getElementById('notification-container');
+        const notif = document.createElement('div'); notif.className = 'notif';
+        notif.style.borderLeftColor = color;
+        notif.innerHTML = `<div class="notif-title" style="color:${color}">${title}</div><div class="notif-msg">${msg}</div>`;
+        container.appendChild(notif);
+        setTimeout(() => { notif.style.opacity = '0'; setTimeout(() => notif.remove(), 500); }, 5000);
+    }
+
+    function openAdminPanel() {
+        const body = document.getElementById('modalBody'); 
+        const ideas = JSON.parse(localStorage.getItem('server_ideas') || '[]');
+        body.innerHTML = `<div class="cat-header"><i class="fa-solid fa-user-shield"></i><span>АДМІН ПАНЕЛЬ</span></div>`;
+        if(!ideas.length) body.innerHTML += `<p style="text-align:center; color:var(--text-muted);">Ідей немає.</p>`;
+        [...ideas].reverse().forEach(i => {
+            let st = i.status === 'approved' ? 'st-approved' : (i.status === 'rejected' ? 'st-rejected' : '');
+            body.innerHTML += `<div class="admin-item ${st}"><small>${i.date} | ${i.email}</small><p style="margin:8px 0;">${i.text}</p><div class="adm-actions"><button class="btn-adm-act" style="background:var(--success)" onclick="updateIdea(${i.id}, 'approved')" ${i.status!=='pending'?'disabled':''}>ТАК</button><button class="btn-adm-act" style="background:var(--error)" onclick="updateIdea(${i.id}, 'rejected')" ${i.status!=='pending'?'disabled':''}>НІ</button><button class="btn-adm-act" style="background:#444" onclick="deleteIdea(${i.id})">🗑️</button></div></div>`;
+        });
+        const modal = document.getElementById('modal'); modal.style.display = 'flex'; setTimeout(() => modal.classList.add('open'), 10);
+    }
+
+    window.updateIdea = (id, status) => {
+        let ideas = JSON.parse(localStorage.getItem('server_ideas') || '[]');
+        const idx = ideas.findIndex(i => i.id === id);
+        if(idx !== -1) { 
+            ideas[idx].status = status; ideas[idx].notified = false; 
+            localStorage.setItem('server_ideas', JSON.stringify(ideas)); 
+            openAdminPanel();
+        }
+    }
+
+    window.deleteIdea = (id) => {
+        let ideas = JSON.parse(localStorage.getItem('server_ideas') || '[]');
+        localStorage.setItem('server_ideas', JSON.stringify(ideas.filter(i => i.id !== id))); 
+        openAdminPanel();
+    }
+
+    window.closeModal = () => { document.getElementById('modal').classList.remove('open'); setTimeout(() => document.getElementById('modal').style.display = 'none', 400); }
+    window.closeAllMenus = (e) => { if (!e.target.closest('#authBtn')) document.getElementById('userMenu')?.classList.remove('active'); }
+    window.onload = initGrid;
 </script>
-
 </body>
 </html>
